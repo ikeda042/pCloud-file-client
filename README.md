@@ -133,6 +133,17 @@ Open [pCloud My Apps](https://docs.pcloud.com/my_apps/) while signed in. After
 approval, that page should show the `Client ID` and `Client secret` for your app.
 The general API documentation is available at [docs.pcloud.com](https://docs.pcloud.com/).
 
+> **Current app creation availability**
+>
+> If the My Apps page shows `Temporary unavailable, please contact support team.`,
+> you cannot create a new app directly from the developer page at the moment.
+> In that case, request manual approval through pCloud's official contact form:
+> https://www.pcloud.com/company/contactus.html
+>
+> Use the request template below and include the requested app name, folder access,
+> write access, and a clear usage justification. Do not include client secrets,
+> access tokens, or private account information in a public repository.
+
 If the app creation button is unavailable or pCloud Support asks for manual
 approval, send only the minimum information needed. Do not publish the resulting
 credentials, access token, email address, or real personal details in this repo.
