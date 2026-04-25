@@ -1,23 +1,57 @@
 # pCloud Python Client
 
-A small, typed Python client for the [pCloud HTTP JSON API](https://docs.pcloud.com/).
-It focuses on the workflows people actually automate from scripts: OAuth app
-authorization, listing folders, creating private backup folders, uploading files,
-downloading files through temporary links, and deleting files.
+[![CI](https://github.com/ikeda042/pCloud-file-client/actions/workflows/ci.yml/badge.svg)](https://github.com/ikeda042/pCloud-file-client/actions/workflows/ci.yml)
+[![Python Versions](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Code style: ruff](https://img.shields.io/badge/lint-ruff-46a2f1.svg)](https://github.com/astral-sh/ruff)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-This project is not affiliated with pCloud.
+A small, typed Python client and CLI for the [pCloud HTTP JSON API](https://docs.pcloud.com/) — built for **automated backup scripts and cron jobs**, not heavyweight SDKs.
+
+```python
+from pcloud_client import PCloudClient
+
+client = PCloudClient.from_env()
+client.ensure_folder("/Backups/laptop")
+client.upload_file("notes.db", remote_dir="/Backups/laptop", ensure=True, rename_if_exists=True)
+```
+
+```bash
+$ pcloud-client upload ./notes.db --remote-dir /Backups/laptop --ensure --rename-if-exists
+{"fileid": 123456789, "path": "/Backups/laptop/notes.db", "size": 4096}
+```
+
+> Not affiliated with pCloud. This is an independent open-source client.
 
 ## Why this library
 
-- OAuth 2.0 code-flow helpers for `Client ID` and `Client secret`
-- US/EU API host support via pCloud's `hostname` redirect parameter
-- Safe folder creation with `folderid + name` instead of fragile path-only calls
-- Simple file operations: `list`, `mkdir -p`, `upload`, `download`, `delete`
-- Directory backup helper that preserves relative paths
-- CLI for quick scripts and cron jobs
-- No credential files or token storage policy baked in
+- **OAuth 2.0 helpers** — code-flow utilities for `Client ID` / `Client secret` exchange
+- **US/EU host aware** — handles pCloud's `hostname` redirect parameter so EU and US accounts both work
+- **Safe folder creation** — uses `folderid + name` instead of fragile path-only calls
+- **Simple, predictable API** — `list`, `mkdir -p`, `upload`, `download`, `delete`
+- **Directory backup** — `upload_directory()` preserves relative paths
+- **CLI included** — drop into cron jobs without writing Python
+- **Typed, tested, no hidden state** — no credential files, no global token cache, no surprises
+
+## Comparison
+
+| | **pcloud-client** (this) | `pcloudapi` (official-ish) | `pcloud-sdk-python` |
+| --- | --- | --- | --- |
+| Typed Python API | ✅ | ❌ | partial |
+| Built-in CLI | ✅ | ❌ | ❌ |
+| OAuth 2.0 code flow helpers | ✅ | partial | ✅ |
+| US + EU host auto-routing | ✅ | manual | manual |
+| Directory backup helper | ✅ | ❌ | ❌ |
+| Streaming downloads | ✅ | ✅ | ✅ |
+| Dependencies | `requests` only | many | many |
 
 ## Install
+
+```bash
+python -m pip install pcloud-python-client-test
+```
+
+From source:
 
 ```bash
 python -m pip install .
@@ -127,6 +161,13 @@ pcloud-client download /Backups/laptop/notes.db ./restore/notes.db --overwrite
 pcloud-client backup-dir ./data --remote-dir /Backups/data
 ```
 
+## Use cases
+
+- Daily personal backups of databases, configs, or photo dumps from a laptop or NAS to a private pCloud folder
+- CI artifacts: upload build outputs after a successful run
+- Cron-driven log/data shipping with minimal dependencies
+- Quick scripted restores without installing the full pCloud desktop app
+
 ## Creating a pCloud My App
 
 Open [pCloud My Apps](https://docs.pcloud.com/my_apps/) while signed in. After
@@ -219,3 +260,14 @@ App-name notes based on Support guidance:
 - Store tokens in your OS secret manager, a local `.env` file excluded from Git,
   or your CI secret store.
 - Rotate/delete tokens from pCloud if they are exposed.
+
+## Contributing
+
+Pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the dev
+setup, test commands, and the small list of style conventions.
+
+If this library saves you time, please ⭐ the repo — it helps other people find it.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

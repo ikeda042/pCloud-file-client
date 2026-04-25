@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: pCloud API documentation
+    url: https://docs.pcloud.com/
+    about: For questions about the pCloud API itself (not this client).
+  - name: pCloud support contact
+    url: https://www.pcloud.com/company/contactus.html
+    about: For account-, app-, or credential-level pCloud questions.

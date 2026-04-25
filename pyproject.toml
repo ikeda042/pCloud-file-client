@@ -5,18 +5,29 @@ build-backend = "hatchling.build"
 [project]
 name = "pcloud-python-client-test"
 version = "0.1.0"
-description = "A small, typed Python client for the pCloud HTTP JSON API."
+description = "A small, typed Python client and CLI for the pCloud HTTP JSON API — built for backup automation."
 readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
 authors = [
   { name = "ikeda042" }
 ]
-keywords = ["pcloud", "cloud-storage", "backup", "oauth2", "client"]
+keywords = [
+  "pcloud",
+  "cloud-storage",
+  "backup",
+  "oauth2",
+  "client",
+  "cli",
+  "automation",
+  "sync",
+]
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
   "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
@@ -25,6 +36,8 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Topic :: Internet :: WWW/HTTP",
   "Topic :: System :: Archiving :: Backup",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Typing :: Typed",
 ]
 dependencies = [
   "requests>=2.31,<3",
@@ -41,9 +54,11 @@ dev = [
 pcloud-client = "pcloud_client.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/ikeda042/pCloud-python-client-test"
-Issues = "https://github.com/ikeda042/pCloud-python-client-test/issues"
-Documentation = "https://github.com/ikeda042/pCloud-python-client-test#readme"
+Homepage = "https://github.com/ikeda042/pCloud-file-client"
+Repository = "https://github.com/ikeda042/pCloud-file-client"
+Issues = "https://github.com/ikeda042/pCloud-file-client/issues"
+Changelog = "https://github.com/ikeda042/pCloud-file-client/blob/main/CHANGELOG.md"
+Documentation = "https://github.com/ikeda042/pCloud-file-client#readme"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pcloud_client"]
